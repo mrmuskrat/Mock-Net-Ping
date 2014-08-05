@@ -1,4 +1,4 @@
-lib/Mock/Net/Ping.pm
+.gitignore
 Changes
 MANIFEST
 META.json
@@ -6,4 +6,5 @@ META.yml
 Makefile.PL
 README.md
 TODO
+lib/Mock/Net/Ping.pm
 t/01-ping.t
