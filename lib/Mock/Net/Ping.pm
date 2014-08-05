@@ -6,10 +6,12 @@ no warnings 'redefine';
 
 use vars qw($VERSION);
 
-$VERSION = '0.01';
+use Socket qw( inet_aton );
+
+$VERSION = '0.02';
 
 # Override Net::Ping::ping
-# localhost and 127.0.0.1 will always pass.
+# Any private IP address, localhost and any IP from 127.0.0.0/8 will always pass.
 # Other hosts and IPs will fail.
 *Net::Ping::ping = sub
 {
@@ -31,16 +33,18 @@ $VERSION = '0.01';
 
     # Dispatch to the appropriate routine.
     $ping_time = &Net::Ping::time();
-    if ( $host eq 'localhost' || $host eq '127.0.0.1' )
+    if ( $host eq 'localhost' )
     {
         $address = '127.0.0.1';
         $ret = 1;
     }
-    elsif ( $host =~ /[^\d.]/ )
+    elsif ( $host =~ /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/ )
     {
-        warn "host: $host\n";
-        $host = $address = '10.10.10.10';
-        $ret = 0;
+        my $packed = inet_aton( $host );
+        # modified version of regex from http://www.perlmonks.org/?node_id=791164
+        # ret = 1 if local or private and 0 otherwise
+        ( $ret ) = 0 + ( $packed =~ m{^(?:\x0a|\x7F|\xAC[\x10-\x1F]|\xC0\xA8)} ); 
+        $address = $host;
     }
     else
     {
@@ -67,7 +71,7 @@ Mock::Net::Ping - Mock Net::Ping's ping method
     my $host = '127.0.0.1';
     my ( $ok, $elapsed ) = $p->ping( $host );
     printf "%s is %s reachable\n", $host, $ok ? '' : 'NOT';
-    $host = '10.10.10.10';
+    $host = '8.8.8.8';
     my ( $ok, $elapsed ) = $p->ping( $host );
     printf "%s is %s reachable\n", $host, $ok ? '' : 'NOT';
 
@@ -85,12 +89,12 @@ Pretend to ping the remote host and wait for a response. $host can
 be either the hostname or the IP number of the remote host. The 
 optional timeout must be greater than 0 seconds and defaults to
 whatever was specified when the ping object was created. Returns a
-success flag. If the host is localhost or 127.0.0.1, the 
-success flag will be 1. For all other hosts, the success flag will
-be 0. In array context, the elapsed time as well as the host that
-was passed (except localhost will be converted to 127.0.0.1). The 
-elapsed time value will be a float, as returned by the 
-Time::HiRes::time() function.
+success flag. If the host is localhost, any address in 127.0.0.0/8
+or any private IP address, the success flag will be 1. For all 
+other hosts, the success flag willbe 0. In array context, the 
+elapsed time as well as the host that was passed (except localhost 
+will be converted to 127.0.0.1). The elapsed time value will be a 
+float, as returned by the Time::HiRes::time() function.
 
 =back
 
