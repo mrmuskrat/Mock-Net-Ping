@@ -32,10 +32,11 @@
       },
       "runtime" : {
          "requires" : {
-            "Net::Ping" : "0"
+            "Net::Ping" : "0",
+            "Socket" : "0"
          }
       }
    },
    "release_status" : "stable",
-   "version" : "0.01"
+   "version" : "0.02"
 }

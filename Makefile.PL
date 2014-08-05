@@ -10,6 +10,7 @@ WriteMakefile(
     PL_FILES        => {},
     PREREQ_PM       => {
         'Net::Ping' => 0,
+        'Socket'    => 0,
     },
     INSTALLDIRS     => 'site',
     dist            => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },

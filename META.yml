@@ -19,4 +19,5 @@ no_index:
     - inc
 requires:
   Net::Ping: 0
-version: 0.01
+  Socket: 0
+version: 0.02
