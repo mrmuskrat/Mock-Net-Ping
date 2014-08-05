@@ -1,6 +1,6 @@
 # Mock::Net::Ping
 
-Mock::Net::Ping - This module overrides Net::Ping::ping.
+Mock::Net::Ping - This module mocks Net::Ping::ping.
 
 ## DOWNLOAD AND INSTALLATION
  
