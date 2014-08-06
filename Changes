@@ -1,8 +1,9 @@
 CHANGES
 -------
-0.02
+0.02  Wed Aug 6 12:05:29 2014 -0500
     - Updated to return success for all localhost and private addresses.
     - Updated tests.
+    - Updated documentation (slightly).
 
 0.01  Tue Aug 5 16:13:44 2014 -0500
     - First release.

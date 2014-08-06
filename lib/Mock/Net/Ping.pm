@@ -77,7 +77,8 @@ Mock::Net::Ping - Mock Net::Ping's ping method
 
 =head1 DESCRIPTION
 
-This module overrides Net::Ping::ping.
+This module mocks Net::Ping by overriding the methods. Currently 
+ping is the only method supported.
 
 =head2 Functions
 
@@ -100,8 +101,8 @@ float, as returned by the Time::HiRes::time() function.
 
 =head1 ACKNOWLEDGEMENTS
 
-This module would not exist without L<Net::Ping> and the 
-documentation is based heavily on that of L<Net::Ping> itself.
+This module would not exist without L<Net::Ping> and this 
+documentation is based heavily on that.
 
 =head1 AUTHOR
 
