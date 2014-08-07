@@ -1,5 +1,9 @@
 CHANGES
 -------
+0.03  
+    - Correct elapsed time tests in t/01-ping.t. Net::Ping versions before 
+        2.41 used CORE::time() by default.
+
 0.02  Wed Aug 6 12:05:29 2014 -0500
     - Updated to return success for all localhost and private addresses.
     - Updated tests.
