@@ -8,7 +8,7 @@ use vars qw($VERSION);
 
 use Socket qw( inet_aton );
 
-$VERSION = '0.02';
+$VERSION = '0.03';
 
 # Override Net::Ping::ping
 # Any private IP address, localhost and any IP from 127.0.0.0/8 will always pass.
