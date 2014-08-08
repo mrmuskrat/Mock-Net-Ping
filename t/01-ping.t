@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 use Test::More;
+use Test::Exception;
 
 use Net::Ping;
 
@@ -17,7 +18,8 @@ subtest "Verify Net::Ping::ping" => sub {
     my ( $ok, $elapsed, $host ) = $p->ping( '127.0.0.1' );
     is( $ok, 1, '127.0.0.1 is pingable' );
     like( $elapsed, qr/^\d+|\d+\.\d+$/, 'Elapsed time was returned' );
-    is( $host, '127.0.0.1', '127.0.0.1 was returned' );
+    diag "elapsed is $elapsed";
+    is( $host, '127.0.0.1', '$host was returned as 127.0.0.1' );
 };
 
 diag( "Override Net::Ping::ping now");
@@ -30,44 +32,71 @@ require Mock::Net::Ping;
 # Test with the mocked version
 subtest "Verify localhost" => sub {
     my ( $ok, $elapsed, $host ) = $p->ping( 'localhost' );
-    is( $ok, 1, 'localhost is pingable' );
-    like( $elapsed, qr/^\d+|\d+\.\d+$/, 'Elapsed time was returned' );
-    is( $host, '127.0.0.1', '127.0.0.1 was returned' );
+    is( $ok, 1, 'Pinging localhost returns true' );
+    is( $host, '127.0.0.1', '$host was returned as 127.0.0.1' );
 };
 
 subtest "Verify localhost IP" => sub {
     my ( $ok, $elapsed, $host ) = $p->ping( '127.127.127.127' );
-    is( $ok, 1, '127.127.127.127 is pingable' );
-    like( $elapsed, qr/^\d+|\d+\.\d+$/, 'Elapsed time was returned' );
-    is( $host, '127.127.127.127', '127.127.127.127 was returned' );
+    is( $ok, 1, 'Pinging 127.127.127.127 returns true' );
+    is( $host, '127.127.127.127', '$host was returned as 127.127.127.127' );
 };
 
 subtest "Verify 10.0.0.0/8 IP" => sub {
     my ( $ok, $elapsed, $host ) = $p->ping( '10.10.10.10' );
-    is( $ok, 1, '10.10.10.10 is pingable' );
-    like( $elapsed, qr/^\d+|\d+\.\d+$/, 'Elapsed time was returned' );
-    is( $host, '10.10.10.10', '10.10.10.10 was returned' );
+    is( $ok, 1, 'Pinging 10.10.10.10 returns true' );
+    is( $host, '10.10.10.10', '$host was returned as 10.10.10.10' );
 };
 
 subtest "Verify 172.16.0.0/12 IP" => sub {
     my ( $ok, $elapsed, $host ) = $p->ping( '172.16.16.16' );
-    is( $ok, 1, '172.16.16.16 is pingable' );
-    like( $elapsed, qr/^\d+|\d+\.\d+$/, 'Elapsed time was returned' );
-    is( $host, '172.16.16.16', '172.16.16.16 was returned' );
+    is( $ok, 1, 'Pinging 172.16.16.16 returns true' );
+    is( $host, '172.16.16.16', '$host was returned as 172.16.16.16' );
 };
 
 subtest "Verify 192.168.0.0/16 IP" => sub {
     my ( $ok, $elapsed, $host ) = $p->ping( '192.168.168.168' );
-    is( $ok, 1, '192.168.168.168 is pingable' );
-    like( $elapsed, qr/^\d+|\d+\.\d+$/, 'Elapsed time was returned' );
-    is( $host, '192.168.168.168', '192.168.168.168 was returned' );
+    is( $ok, 1, 'Pinging 192.168.168.168 returns true' );
+    is( $host, '192.168.168.168', '$host was returned as 192.168.168.168' );
 };
 
 subtest "Verify public IP" => sub {
     my ( $ok, $elapsed, $host ) = $p->ping( '8.8.8.8' ); # Google DNS server
-    is( $ok, 0, '8.8.8.8 is not pingable' );
-    like( $elapsed, qr/^\d+|\d+\.\d+$/, 'Elapsed time was returned' );
-    is( $host, '8.8.8.8', '8.8.8.8 was returned' );
+    is( $ok, 0, 'Pinging 8.8.8.8 returns false' );
+    is( $host, '8.8.8.8', '$host was returned as 8.8.8.8' );
+};
+
+subtest "Verify public hostname" => sub {
+    my ( $ok, $elapsed, $host ) = $p->ping( 'www.google.com' );
+    is ( $ok, 0, 'Pinging www.google.com returns false' );
+    is( $host, 'www.google.com', '$host was returned as www.google.com' );
+};
+
+subtest "Verify return in scalar context" => sub {
+    my $ok = $p->ping( 'localhost' );
+    is( $ok, 1, 'Pinging localhost in scalar context returns true' );
+    $ok = $p->ping( '8.8.8.8' );
+    is( $ok, 0, 'Pinging 8.8.8.8 in scalar context returns false' );
+};
+
+subtest "Verify failures are detected" => sub {
+    throws_ok { $p->ping() } qr/Usage: /, 'No parameters passed';
+    throws_ok { $p->ping( 'localhost', 1, 2 ) } qr/Usage: /, 'Too many parameters passed';
+    throws_ok { $p->ping( 'localhost', 0 ) } qr/Timeout must be greater than 0 seconds/, 'Timeout must be greater than 0 seconds';
+    throws_ok { $p->ping( 'localhost', -10 ) } qr/Timeout must be greater than 0 seconds/, 'Timeout must be greater than 0 seconds';
+    my $ok = $p->ping( undef );
+    is( $ok, undef, 'Undefined $host returns undef' );
+};
+
+subtest "Verify elapsed time" => sub {
+    $p->hires( 1 ); # enable hires
+    my ( $ok, $elapsed, $host ) = $p->ping( 'localhost' );
+    diag "elapsed is $elapsed";
+    like( $elapsed * 1000, qr/^\d+\.\d+$/, 'Elapsed time is a float with hires enabled' );
+    $p->hires( 0 ); # disable hires regardless of current setting
+    ( $ok, $elapsed, $host ) = $p->ping( 'localhost' );
+    diag "elapsed is $elapsed";
+    like( $elapsed, qr/^\d+$/, 'Elapsed time is an integer with hires disabled' );
 };
 
 done_testing;
