@@ -1,5 +1,11 @@
 CHANGES
 -------
+0.04 Fri Aug  8 16:06:46 CDT 2014
+    - Fix how $timeout is used.
+    - Add additional test to t/01-ping.t and improve how the elapsed time
+        is being tested. (100% coverage)
+    - Added 'use Carp'. Oops!
+    
 0.03  Thu Aug  7 10:43:02 CDT 2014
     - Correct elapsed time tests in t/01-ping.t. Net::Ping versions before 
         2.41 used CORE::time() by default.
