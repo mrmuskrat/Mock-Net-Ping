@@ -7,8 +7,9 @@ no warnings 'redefine';
 use vars qw($VERSION);
 
 use Socket qw( inet_aton );
+use Carp;
 
-$VERSION = '0.03';
+$VERSION = '0.04';
 
 # Override Net::Ping::ping
 # Any private IP address, localhost and any IP from 127.0.0.0/8 will always pass.
@@ -26,7 +27,7 @@ $VERSION = '0.03';
     );
 
     croak("Usage: \$p->ping(\$host [, \$timeout])") unless @_ == 2 || @_ == 3;
-    $timeout = $self->{"timeout"} unless $timeout;
+    $timeout = $self->{"timeout"} unless defined $timeout;
     croak("Timeout must be greater than 0 seconds") if $timeout <= 0;
 
     return unless defined $host;
