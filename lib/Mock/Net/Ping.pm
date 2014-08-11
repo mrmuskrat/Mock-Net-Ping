@@ -9,7 +9,7 @@ use vars qw($VERSION);
 use Socket qw( inet_aton );
 use Carp;
 
-$VERSION = '0.04';
+$VERSION = '0.05';
 
 # Override Net::Ping::ping
 # Any private IP address, localhost and any IP from 127.0.0.0/8 will always pass.
@@ -95,8 +95,11 @@ success flag. If the host is localhost, any address in 127.0.0.0/8
 or any private IP address, the success flag will be 1. For all 
 other hosts, the success flag willbe 0. In array context, the 
 elapsed time as well as the host that was passed (except localhost 
-will be converted to 127.0.0.1). The elapsed time value will be a 
-float, as returned by the Time::HiRes::time() function.
+will be converted to 127.0.0.1). The elapsed time value will depend
+on which version of L<Net::Ping> you have installed as well as
+whether or not you have called its hires method; it will either
+be an integer (as returned by CORE::time()) or a float (as returned
+by Time::HiRes::time()).
 
 =back
 
