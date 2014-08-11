@@ -1,5 +1,9 @@
 CHANGES
 -------
+0.05 Mon Aug 11 13:23:55 CDT 2014
+    - Fix documentation of ping to better explain the elapsed time value.
+    - Updated Makefile.PL, META.json and META.yml to link to Github repo.
+
 0.04 Fri Aug  8 16:06:46 CDT 2014
     - Fix how $timeout is used.
     - Add additional test to t/01-ping.t and improve how the elapsed time
