@@ -20,4 +20,9 @@ no_index:
 requires:
   Net::Ping: 0
   Socket: 0
-version: 0.04
+resources:
+  bugtracker: http://github.com/mrmuskrat/Mock-Net-Ping/issues/
+  homepage: http://github.com/mrmuskrat/Mock-Net-Ping/
+  license: http://dev.perl.org/licenses/
+  repository: http://github.com/mrmuskrat/Mock-Net-Ping/
+version: 0.05
