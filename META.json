@@ -22,7 +22,7 @@
    "prereqs" : {
       "build" : {
          "requires" : {
-            "ExtUtils::MakeMaker" : "0"
+            "Test::Exception" : "0"
          }
       },
       "configure" : {
@@ -50,5 +50,5 @@
          "url" : "http://github.com/mrmuskrat/Mock-Net-Ping/"
       }
    },
-   "version" : "0.05"
+   "version" : "0.06"
 }

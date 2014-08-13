@@ -1,5 +1,8 @@
 CHANGES
 -------
+0.06 Wed Aug 13 11:16:05 CDT 2014
+    - Add Test::Exception as a build requirement to Makefile.PL, META.json and META.yml. Oops!
+
 0.05 Mon Aug 11 13:23:55 CDT 2014
     - Fix documentation of ping to better explain the elapsed time value.
     - Updated Makefile.PL, META.json and META.yml to link to Github repo.

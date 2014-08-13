@@ -15,8 +15,11 @@ WriteMakefile(
     ABSTRACT_FROM   => 'lib/Mock/Net/Ping.pm',
     PL_FILES        => {},
     PREREQ_PM       => {
-        'Net::Ping' => 0,
-        'Socket'    => 0,
+        'Net::Ping'         => 0,
+        'Socket'            => 0,
+    },
+    BUILD_REQUIRES  => {
+        'Test::Exception'   => 0,
     },
     INSTALLDIRS     => 'site',
     dist            => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
