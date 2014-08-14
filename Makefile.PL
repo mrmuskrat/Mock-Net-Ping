@@ -22,7 +22,7 @@ WriteMakefile(
         'Test::Exception'   => 0,
     },
     INSTALLDIRS     => 'site',
-    dist            => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
+    dist            => { COMPRESS => 'gzip -9f', SUFFIX => '.gz', },
     clean           => { FILES => 'Mock-Net-Ping-*' },
     ($mm_ver < 6.46 ? () : (META_MERGE => {
         resources => {
@@ -31,5 +31,9 @@ WriteMakefile(
             bugtracker  => 'http://github.com/mrmuskrat/Mock-Net-Ping/issues/',
             repository  => 'http://github.com/mrmuskrat/Mock-Net-Ping/',
         },
-    }))
+    })),
+    ($mm_ver >= 6.48
+        ? (MIN_PERL_VERSION => 5.006)
+        : ()
+    ),
 );
