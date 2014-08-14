@@ -1,5 +1,10 @@
 CHANGES
 -------
+0.08 Thu Aug 14 12:04:12 CDT 2014
+    - Added META.yml and META.json back after accidentally removing them in 
+        0.07.
+    - Corrected MANIFEST.
+ 
 0.07 Thu Aug 14 11:42:24 CDT 2014
     - Add min Perl version to Mock::Net::Ping and Makefile.PL.
     - Removed .gitignore from MANIFEST.
