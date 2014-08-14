@@ -1,11 +1,15 @@
 CHANGES
 -------
+0.07 Thu Aug 14 11:42:24 CDT 2014
+    - Add min Perl version to Mock::Net::Ping and Makefile.PL.
+    - Removed .gitignore from MANIFEST.
+ 
 0.06 Wed Aug 13 11:16:05 CDT 2014
-    - Add Test::Exception as a build requirement to Makefile.PL, META.json and META.yml. Oops!
+    - Add Test::Exception as a build requirement to Makefile.PL. Oops!
 
 0.05 Mon Aug 11 13:23:55 CDT 2014
     - Fix documentation of ping to better explain the elapsed time value.
-    - Updated Makefile.PL, META.json and META.yml to link to Github repo.
+    - Updated Makefile.PL to link to Github repo.
 
 0.04 Fri Aug  8 16:06:46 CDT 2014
     - Fix how $timeout is used.
