@@ -2,14 +2,14 @@ package Mock::Net::Ping;
 
 use strict;
 use warnings;
+use 5.006;
 no warnings 'redefine';
-
-use vars qw($VERSION);
+use vars qw( $VERSION );
 
 use Socket qw( inet_aton );
 use Carp;
 
-$VERSION = '0.06';
+$VERSION = '0.07';
 
 # Override Net::Ping::ping
 # Any private IP address, localhost and any IP from 127.0.0.0/8 will always pass.
