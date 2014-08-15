@@ -63,6 +63,10 @@ __END__
 
 Mock::Net::Ping - Mock Net::Ping's ping method
 
+=for HTML 
+    <a href="https://travis-ci.org/mrmuskrat/Mock-Net-Ping"><img src="https://travis-ci.org/mrmuskrat/Mock-Net-Ping.svg?branch=master"></a>
+    <a href='https://coveralls.io/r/mrmuskrat/Mock-Net-Ping?branch=master'><img src='https://coveralls.io/repos/mrmuskrat/Mock-Net-Ping/badge.png?branch=master' alt='Coverage Status' /></a> 
+
 =head1 SYNOPSIS
 
     use Net::Ping;
