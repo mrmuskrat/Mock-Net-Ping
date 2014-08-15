@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/mrmuskrat/Mock-Net-Ping.svg?branch=master)](https://travis-ci.org/mrmuskrat/Mock-Net-Ping)
+[![Coverage Status](https://coveralls.io/repos/mrmuskrat/Mock-Net-Ping/badge.png?branch=master)](https://coveralls.io/r/mrmuskrat/Mock-Net-Ping?branch=master)
 # Mock::Net::Ping
 
 Mock::Net::Ping - This module mocks Net::Ping.
