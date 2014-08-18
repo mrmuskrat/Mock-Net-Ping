@@ -15,7 +15,7 @@ WriteMakefile(
     ABSTRACT_FROM   => 'lib/Mock/Net/Ping.pm',
     PL_FILES        => {},
     PREREQ_PM       => {
-        'Net::Ping'         => 0,
+        'Net::Ping'         => 2.31, # 28 Jun 2003
         'Socket'            => 0,
     },
     BUILD_REQUIRES  => {
