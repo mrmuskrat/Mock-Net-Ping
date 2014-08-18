@@ -12,16 +12,6 @@ subtest "Verify Net::Ping::new" => sub {
     $p = new_ok( 'Net::Ping' );
 };
 
-# Test with the real Net::Ping::Ping
-subtest "Verify Net::Ping::ping" => sub {
-    can_ok 'Net::Ping', 'ping';
-    my ( $ok, $elapsed, $host ) = $p->ping( '127.0.0.1' );
-    is( $ok, 1, '127.0.0.1 is pingable' );
-    like( $elapsed, qr/^\d+|\d+\.\d+$/, 'Elapsed time was returned' );
-    diag "elapsed is $elapsed";
-    is( $host, '127.0.0.1', '$host was returned as 127.0.0.1' );
-};
-
 diag( "Override Net::Ping::ping now");
 
 # Override Net::Ping::ping so that we don't slow down the rest of the tests...
