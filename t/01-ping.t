@@ -80,10 +80,12 @@ subtest "Verify failures are detected" => sub {
 
 subtest "Verify elapsed time" => sub {
     $p->hires( 1 ); # enable hires
+    diag "hires is $Net::Ping::hires";
     my ( $ok, $elapsed, $host ) = $p->ping( 'localhost' );
     diag "elapsed is $elapsed";
     like( $elapsed * 1000, qr/^\d+\.\d+$/, 'Elapsed time is a float with hires enabled' );
-    $p->hires( 0 ); # disable hires regardless of current setting
+    $p->hires( 0 ); # disable hires
+    diag "hires is $Net::Ping::hires";
     ( $ok, $elapsed, $host ) = $p->ping( 'localhost' );
     diag "elapsed is $elapsed";
     like( $elapsed, qr/^\d+$/, 'Elapsed time is an integer with hires disabled' );

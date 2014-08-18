@@ -4,6 +4,7 @@ CHANGES
     - Updated min Net::Ping version to 2.31 (28 Jun 2003): the first version
         available that supports the time subroutine.
     - Remove ping test of localhost before ping has been mocked.
+    - Add some diagnostics to t/01-ping.t.
 
 0.08 Thu Aug 14 12:04:12 CDT 2014
     - Added META.yml and META.json back after accidentally removing them in 
