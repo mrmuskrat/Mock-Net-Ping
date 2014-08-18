@@ -18,7 +18,7 @@ no_index:
     - t
     - inc
 requires:
-  Net::Ping: 0
+  Net::Ping: 2.31
   Socket: 0
   perl: 5.006
 resources:
@@ -26,4 +26,4 @@ resources:
   homepage: http://github.com/mrmuskrat/Mock-Net-Ping/
   license: http://dev.perl.org/licenses/
   repository: http://github.com/mrmuskrat/Mock-Net-Ping/
-version: 0.08
+version: 0.09
